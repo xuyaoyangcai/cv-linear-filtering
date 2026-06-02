@@ -55,7 +55,7 @@
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{\small 计算机视觉课程作业（1）：线性滤波}
-\fancyhead[R]{\small 章旭尧}
+\fancyhead[R]{\small 章屹倬}
 \fancyfoot[C]{\thepage}
 \renewcommand{\headrulewidth}{0.5pt}
 
@@ -66,8 +66,7 @@
 % ==================== 文档信息 ====================
 \title{\vspace{2cm}\Huge\textbf{线性滤波实验报告}\\[0.5cm]
        \Large 高斯金字塔 · 噪声生成 · 平滑滤波 · 去噪处理}
-\author{\large 章旭尧 \quad 学号：\_\_\_\_\_\_\_\_\_\_\\[0.3cm]
-        \large 计算机科学与技术系}
+\author{\large 章屹倬 \quad 学号：231880366}
 \date{\large 2026年6月}
 
 \begin{document}
@@ -79,7 +78,6 @@
 \vspace{2cm}
 \begin{center}
     \large\textbf{计算机视觉课程作业（1）}\\[0.5cm]
-    \normalsize 指导教师：\_\_\_\_\_\_\_\_\_\_\\[0.3cm]
     \normalsize 提交日期：2026年6月2日
 \end{center}
 
@@ -99,7 +97,7 @@
 （4）基于高斯平滑与中值滤波的去噪对比实验；
 （5）综合可视化分析。
 
-实验以 1276$\times$1702 分辨率的真实照片为测试图像，系统考察了线性滤波器（Box Filter、Gaussian Filter）与非线性滤波器（Median Filter）在不同噪声模型下的表现差异。结果表明：线性滤波器对高斯噪声具有良好抑制效果，但对椒盐噪声无效甚至产生伪影；中值滤波作为非线性方法，对脉冲噪声（椒盐噪声）具有卓越的剔除能力，同时能较好地保持边缘信息。实验揭示了空间域滤波中"噪声抑制"与"边缘保留"之间的根本性权衡，为后续学习更高级的图像处理技术奠定了基础。
+实验以 2268$\times$4032 分辨率的真实照片为测试图像，系统考察了线性滤波器（Box Filter、Gaussian Filter）与非线性滤波器（Median Filter）在不同噪声模型下的表现差异。结果表明：线性滤波器对高斯噪声具有良好抑制效果，但对椒盐噪声无效甚至产生伪影；中值滤波作为非线性方法，对脉冲噪声（椒盐噪声）具有卓越的剔除能力，同时能较好地保持边缘信息。实验揭示了空间域滤波中"噪声抑制"与"边缘保留"之间的根本性权衡，为后续学习更高级的图像处理技术奠定了基础。
 
 \vspace{1cm}
 \noindent\textbf{关键词：}线性滤波；高斯金字塔；高斯噪声；椒盐噪声；均值滤波；高斯平滑；中值滤波；去噪
@@ -146,7 +144,7 @@
         NumPy & $\ge$ 1.24.0 \\
         Matplotlib & $\ge$ 3.7.0 \\
         IDE & Visual Studio Code \\
-        测试图像 & 1276$\times$1702 真实照片（灰度图） \\
+        测试图像 & 2268$\times$4032 真实照片（灰度图） \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -182,7 +180,7 @@
 
 \begin{itemize}
     \item 金字塔层数：$L = 4$
-    \item 各层分辨率：L0 = 1276$\times$1702, L1 = 638$\times$851, L2 = 319$\times$425, L3 = 160$\times$212
+    \item 各层分辨率：L0 = 2268$\times$4032, L1 = 1134$\times$2016, L2 = 567$\times$1008, L3 = 284$\times$504
 \end{itemize}
 
 \subsection{噪声模型}
@@ -518,7 +516,7 @@ def main(image_path):
 \textbf{结果分析：}从图 \ref{fig:pyramid} 可以清楚地观察到多尺度表示的特性：
 
 \begin{enumerate}[leftmargin=*]
-    \item \textbf{分辨率递减：}L0 为原始 1276$\times$1702 分辨率，L1 降至 638$\times$851，L2 为 319$\times$425，L3 仅 160$\times$212——每层的像素总数约为上一层的 $1/4$。
+    \item \textbf{分辨率递减：}L0 为原始 2268$\times$4032 分辨率，L1 降至 1134$\times$2016，L2 为 567$\times$1008，L3 仅 284$\times$504——每层的像素总数约为上一层的 $1/4$。
     \item \textbf{信息量递减：}随着层数增加，图像细节逐渐消失。发丝、衣物褶皱等高频纹理在 L2 已基本不可分辨，L3 仅保留人脸的整体轮廓和明暗分布。这体现了低通滤波的能量集中效应——低频分量包含了图像的绝大部分视觉信息。
     \item \textbf{无混叠伪影：}由于 \texttt{cv2.pyrDown()} 在下采样前先执行高斯平滑，有效抑制了奈奎斯特频率以上的分量，各层均未出现摩尔纹或锯齿。
 \end{enumerate}
